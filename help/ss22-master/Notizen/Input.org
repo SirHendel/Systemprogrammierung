@@ -1,0 +1,21 @@
+* Definitionen
+  | Funktionen in <stdio.h>                  | Erlaeuterung                                   |
+  |------------------------------------------+------------------------------------------------|
+  | =scanf(const char *restric format, ...)= | Liest die Werte im Format ein                  |
+  |                                          | @return Anzahl der richtig eingelsen Variablen |
+  | =printf(const char *s                 |                                                |
+* Inputbeispiele
+** Eingaben von Zahlenwerten
+  *Problem:* 
+  #+begin_src c
+  int main() {
+    int ivar; long lvar; double dvar; // Variablen
+    int scanres; // Scan Result
+    printf("Eingabe: ");
+    fflush(stdout);  
+    scanresult = scanf("%d %ld %lf", &ivar, &lvar, &dvar);
+    while(getchar() != '\n');  // Buffer leeren
+  }
+  #+end_src
+
+** Eingaben von Strings

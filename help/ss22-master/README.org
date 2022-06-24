@@ -1,0 +1,59 @@
+* Installationsmöglichkeiten
+Installation ohne Docker mit folgenden Befehl:
+#+begin_src shell
+apt update && apt -y upgrade 
+apt  install gcc g++ gcc-multilib gdb emacs git
+git clone https://gitlab.com/toobi7007/ss22
+cd ss22
+#+end_src
+
+Installation mit Docker:
+#+begin_src shell
+git clone https://gitlab.com/toobi7007/ss22
+cd ss22
+docker build -t ss22 .
+#+end_src
+  
+Terminal + Entwicklungsumgebung starten im Container:
+#+begin_src shell
+docker images
+docker run -it ss22:latest
+cd ss22 && nvim Makefile
+#+end_src
+
+Docker in Emacs effektiv verwenden:
+#+begin_src elisp
+;; Vorbereiten des Packagemanagers
+(require 'package) 
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+
+;; Nutzen des Docker Packages
+(use-package docker
+  :bind ("C-c d" . docker))
+
+;; Je nach dem ob man Evil nutzt, sollte man die Shortcuts auf Emacs stellen
+(use-package evil
+  :config
+  (evil-mode t)
+  (dolist (state '(docker-container-mode docker-volume-mode
+		   docker-image-mode docker-network-mode))
+    (evil-set-initial-state state 'emacs)))
+
+#+end_src
+
+Nun kann man unter Emacs mit =C-c d= oder =M-x docker= mit dem Interface arbeiten. 
+Mit =?= kann man sich die Shortcuts in den jeweiligen Buffern anschauen.
+
+* Notizen
+  1. Praktikum ([[file:Praktikas/Pr1/hello1.c][Code 1]], [[file:Praktikas/Pr1/kreis.c][Code 2]], [[https://www.staff.hs-mittweida.de/~tb/intranet/SysProg/Praktikum/prakt1.html][Aufgabe]])
+  2. Praktikum ([[file:Praktikas/Pr2/Teilaufgabe_1.c][Teil 1]], [[file:Praktikas/Pr2/Teilaufgabe_2.c][Teil 2]], [[file:Praktikas/Pr2/Teilaufgabe_3.c][Teil 3]], [[file:Praktikas/Pr2/Teilaufgabe_4.c][Teil 4]], [[https://www.staff.hs-mittweida.de/~tb/intranet/SysProg/Praktikum/prakt2.html][Aufgabe]])
+  3. Praktikum ([[file:Praktikas/Pr3/kreis.c][Code Kreis]], [[file:Praktikas/Pr3/flaeche.h][Code Flaeche Header]], [[file:Praktikas/Pr3/flaeche.c][Code Flaeche]], [[https://www.staff.hs-mittweida.de/~tb/intranet/SysProg/Praktikum/prakt3.html][Aufgabe]])
+  4. Praktikum ([[file:Praktikas/Pr4/Teilaufgabe_1.c][Teil 1]], [[file:Praktikas/Pr4/Teilaufgabe_2.c][Teil 2]], [[file:Praktikas/Pr4/Teilaufgabe_3.c][Teil 3]], [[https://www.staff.hs-mittweida.de/~tb/intranet/SysProg/Praktikum/prakt4.html][Aufgabe]])
