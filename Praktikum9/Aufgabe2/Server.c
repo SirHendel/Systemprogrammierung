@@ -73,8 +73,7 @@ int main(int argc, char* argv[]) {
 	}
 	while(1) {
 		filesize = 0; 
-		if (msgrcv(msqid,&handshake,sizeof(handshake.fn),
-					HANDSHAKE,0) < 0){
+		if (msgrcv(msqid,&handshake,sizeof(handshake.fn),HANDSHAKE,0) < 0){
 			perror("msgrcv");
 			exit(EXIT_FAILURE);
 		}
@@ -84,8 +83,7 @@ int main(int argc, char* argv[]) {
 			handshakeAccept.fn.resultcode = 0;
 		}
 		//Antwort senden
-		if (msgsnd(msqid,&handshakeAccept,
-					sizeof(handshakeAccept.fn),0) < 0) {
+		if (msgsnd(msqid,&handshakeAccept,sizeof(handshakeAccept.fn),0) < 0) {
 			perror("msgsnd");
 			exit(EXIT_FAILURE);
 		}
